@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  nest:
+    container_name: nest
+    image: server_app
+    build: .
+    restart: on-failure
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_INIT=false
+      - SERVER_PORT=3000
+      - MONGODB_URL=mongodb://mongodb:27017/library-next-api
+    depends_on:
+      - mongodb
+    
+
+  mongodb:
+    container_name: mongodb_1
+    restart: unless-stopped
+    image: mongo:4.4.6
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongodb_data:/data/db
+    
+  front:
+    container_name: front
+    image: server_web
+    build: ../HR_Management
+    restart: always
+    ports:
+      - "4200:80"
+    depends_on:
+      - nest
+
+volumes:
+  mongodb_data:
+
+      
