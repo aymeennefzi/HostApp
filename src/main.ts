@@ -12,7 +12,7 @@ async function bootstrap() {
 
   await app.listen(3000);
   app.enableCors({
-    origin: ['http://localhost:4200'],
+    origin: 'https://brilliant-sunburst-e8e337.netlify.app',
     credentials:  true,
     methods: 'GET,PUT,POST,DELETE',
     allowedHeaders: ['Content-Type', 'Authorization'],
